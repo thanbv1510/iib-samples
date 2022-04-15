@@ -1,0 +1,12 @@
+
+
+CREATE COMPUTE MODULE main_CombineResult
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE outputJson ROW;
+		SET outputJson.result = InputRoot.ComIbmAggregateReplyBody.be1.JSON.Data.result || InputRoot.ComIbmAggregateReplyBody.be2.JSON.Data.result; 
+		
+		SET OutputRoot.JSON.Data = outputJson;
+		RETURN TRUE;
+	END;
+END MODULE;

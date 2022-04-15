@@ -1,0 +1,13 @@
+BROKER SCHEMA bemock
+
+
+CREATE COMPUTE MODULE bemock_Compute1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE outputJson ROW;
+		SET outputJson.result = 'result backend 2';
+
+		SET OutputRoot.JSON.Data = outputJson;
+		RETURN TRUE;
+	END;
+END MODULE;
