@@ -1,0 +1,21 @@
+
+
+Importing file: C:\Users\thanbv\Pictures\iib-samples\mbf_hlrgw_model2\hlrgw.wsdl
+
+The WSDL import will proceed with bindings hlrgwSoapBinding.
+Creating wsdl schema document for file:///C:/Users/thanbv/Pictures/iib-samples/mbf_hlrgw_model2/hlrgw.wsdl.
+Parsing wsdl binding {http://10.50.9.2:19003/hlrgw}hlrgwSoapBinding.
+Parsing wsdl binding input execute.
+Parsing wsdl binding output execute.
+Processing rpc style for operation execute.
+Populating WSDL schema hlrgw.xsd.
+Creating file hlrgw.xsd in the workspace.
+Copying source WSDL hlrgw.wsdl to hlrgw.wsdl.
+
+Elapsed time processing this message definition file: 0.14 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+

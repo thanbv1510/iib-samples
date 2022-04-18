@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><mappingRoot xmlns="http://www.ibm.com/2008/ccl/Mapping" domainID="com.ibm.msl.mapping.xml" domainIDExtension="mb" mainMap="true" targetNamespace="default" version="8.0.5.0" xmlns:map="default">
+    <inlinedXMLSchema><![CDATA[<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"> 
+    <xsd:element name="email" nillable="true" type="xsd:string"/> 
+    <xsd:element name="address" nillable="true" type="xsd:string"/> 
+    <xsd:element name="age" nillable="true" type="xsd:integer"/> 
+    <xsd:element name="name" nillable="true" type="xsd:string"/> 
+</xsd:schema>]]></inlinedXMLSchema>
+    <input path="jar:file://!com/ibm/etools/mft/map/xsds/predefined/JsonDomainMsg.xsd" var="var"/>
+    <input inlinedXMLSchema="true" path="../schema_0.xsd" var="var1"/>
+    <output path="mbsharedlib://mbf_hlrgw_model/hlrgw.xsd"/>
+    <generation engine="xquery"/>
+    <mappingDeclaration name="mapping__node_mapping_JSON2XML">
+        <input namespace="http://www.ibm.com/iib/msl/json" path="$var/mb:msg(JSON,assembly,JSON,Properties)" var="MessageAssembly">
+            <cast castType="userDefined" path="$MessageAssembly/JSON/Data/type('anyType')" qualifier="{http://www.ibm.com/iib/msl/json}JSONObject" ref="var"/>
+            <cast castType="userDefined" path="$MessageAssembly/JSON/spath('Data',2)/any" qualifier="name" ref="var1"/>
+            <cast castType="userDefined" path="$MessageAssembly/JSON/spath('Data',2)/any" qualifier="age" ref="var1"/>
+            <cast castType="userDefined" path="$MessageAssembly/JSON/spath('Data',2)/any" qualifier="address" ref="var1"/>
+            <cast castType="userDefined" path="$MessageAssembly/JSON/spath('Data',2)/any" qualifier="email" ref="var1"/>
+        </input>
+        <output namespace="http://10.50.9.2:19003/hlrgw" path="mb:msg(execute,assembly,XMLNSC,Properties)" var="MessageAssembly2"/>
+        <move>
+            <input path="$MessageAssembly/Properties"/>
+            <output path="$MessageAssembly2/Properties"/>
+            <override>
+                <assign value="{mbf_hlrgw_model}">
+                    <output path="$MessageAssembly2/Properties/MessageSet"/>
+                </assign>
+            </override>
+        </move>
+        <move>
+            <input path="$MessageAssembly/JSON/spath('Data',2)/name[1]"/>
+            <output path="$MessageAssembly2/execute/username"/>
+        </move>
+        <move>
+            <input path="$MessageAssembly/JSON/spath('Data',2)/address[1]"/>
+            <output path="$MessageAssembly2/execute/password"/>
+        </move>
+        <move>
+            <input path="$MessageAssembly/JSON/spath('Data',2)/email[1]"/>
+            <output path="$MessageAssembly2/execute/command"/>
+        </move>
+    </mappingDeclaration>
+</mappingRoot>

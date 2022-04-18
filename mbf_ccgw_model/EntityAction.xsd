@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://webservices.gateway.fss.com" xmlns:Q1="http://schemas.xmlsoap.org/soap/envelope/" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:intf="http://webservices.gateway.fss.com">
+  <xsd:import namespace="http://schemas.xmlsoap.org/soap/envelope/" schemaLocation="IBMdefined/org/xmlsoap/schemas/soap/envelope/soapenv11.xsd"/>
+
+<!-- BEGIN Global group petaining to all wsdl:message definitions -->
+    <xsd:group name="executeCommandResponseGroup">
+    <xsd:sequence>
+      <xsd:element name="executeCommandReturn" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:group>
+    <xsd:group name="executeCommandRequestGroup">
+    <xsd:sequence>
+      <xsd:element name="command" type="xsd:string"/>
+      <xsd:element name="user" type="xsd:string"/>
+      <xsd:element name="pass" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:group>
+<!-- END Global group -->
+
+
+<!-- BEGIN Message Definitions for the wsdl:operations  -->
+    <xsd:element ibmSchExtn:docRoot="true" name="executeCommand" type="intf:executeCommand_OperType"/>
+    <xsd:element ibmSchExtn:docRoot="true" name="executeCommandResponse" type="intf:executeCommandResponse_OperType"/>
+    <xsd:complexType name="executeCommand_OperType">
+    <xsd:choice maxOccurs="1" minOccurs="1">
+      <xsd:group ref="intf:executeCommandRequestGroup"/>
+    </xsd:choice>
+    <xsd:attributeGroup ref="Q1:encodingStyle"/>
+  </xsd:complexType>
+    <xsd:complexType name="executeCommandResponse_OperType">
+    <xsd:choice maxOccurs="1" minOccurs="1">
+      <xsd:group ref="intf:executeCommandResponseGroup"/>
+    </xsd:choice>
+    <xsd:attributeGroup ref="Q1:encodingStyle"/>
+  </xsd:complexType>
+<!-- END Message Definitions -->
+
+
+</xsd:schema>

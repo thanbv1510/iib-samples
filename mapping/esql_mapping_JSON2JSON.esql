@@ -1,0 +1,13 @@
+CREATE COMPUTE MODULE esql_mapping_JSON2JSON
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE inputJson ROW InputRoot.JSON.Data;
+		
+		-- convert to json
+		DECLARE outputJson ROW;
+		SET outputJson.result = 'username: ' || inputJson.username || ', comamnd=' || inputJson.command;
+		
+		SET OutputRoot.JSON.Data = outputJson;
+		RETURN TRUE;
+	END;
+END MODULE;

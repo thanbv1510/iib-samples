@@ -1,0 +1,18 @@
+CREATE COMPUTE MODULE esql_mapping_JSON2XML
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE inputJson ROW InputRoot.JSON.Data;
+		
+		-- convert to xml
+		DECLARE hlr NAMESPACE 'http://10.50.9.2:19003/hlrgw';
+		DECLARE web NAMESPACE 'http://schemas.xmlsoap.org/soap/envelope/';
+				
+		SET OutputRoot.XMLNSC.web:Envelope.(XMLNSC.NamespaceDecl)xmlns:hlr = hlr;
+		SET OutputRoot.XMLNSC.web:Envelope.(XMLNSC.NamespaceDecl)xmlns:web = web;
+		SET OutputRoot.XMLNSC.web:Envelope.web:Body.hlr:execute.username = inputJson.username;
+		SET OutputRoot.XMLNSC.web:Envelope.web:Body.hlr:execute.password = inputJson.password;
+		SET OutputRoot.XMLNSC.web:Envelope.web:Body.hlr:execute.command = 'command=' || inputJson.command;
+		
+		RETURN TRUE;
+	END;
+END MODULE;

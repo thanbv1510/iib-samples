@@ -1,0 +1,27 @@
+
+
+Importing file: C:\Users\thanbv\Desktop\EntityAction.wsdl
+
+
+The following is a list of WS-I warning messages found when importing:
+WS-I BP 1.1: (BP2406) The wsdlsoap:body must specify a "use" attribute with the value "literal"., Line: 63, Column: 13
+WS-I BP 1.1: (BP2406) The wsdlsoap:body must specify a "use" attribute with the value "literal"., Line: 69, Column: 13
+
+
+The WSDL import will proceed with bindings EntityActionSoapBinding.
+Creating wsdl schema document for file:///C:/Users/thanbv/Desktop/EntityAction.wsdl.
+Parsing wsdl binding {http://webservices.gateway.fss.com}EntityActionSoapBinding.
+Parsing wsdl binding input executeCommand.
+Parsing wsdl binding output executeCommand.
+Processing rpc style for operation executeCommand.
+Populating WSDL schema EntityAction.xsd.
+Creating file EntityAction.xsd in the workspace.
+Copying source WSDL EntityAction.wsdl to EntityAction.wsdl.
+
+Elapsed time processing this message definition file: 0.478 seconds
+Number of warnings for this message definition file: 0
+
+
+Number of files processed: 1
+
+

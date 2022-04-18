@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	targetNamespace="http://webservices.gateway.fss.com" xmlns:apachesoap="http://xml.apache.org/xml-soap"
+	xmlns:impl="http://webservices.gateway.fss.com" xmlns:intf="http://webservices.gateway.fss.com"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<wsdl:documentation>
+		<wsdl:appinfo source="WMQI_APPINFO">
+			<MRWSDLAppInfo imported="true">
+				<binding hasEncoding="true" imported="true"
+					name="EntityActionSoapBinding" originalBindingStyle="rpc" />
+				<generatedXSD location="EntityAction.wsdl" />
+			</MRWSDLAppInfo>
+		</wsdl:appinfo>
+	</wsdl:documentation>
+
+	<wsdl:message name="executeCommandRequest">
+		<wsdl:part name="command" type="xsd:string">
+		</wsdl:part>
+		<wsdl:part name="user" type="xsd:string">
+		</wsdl:part>
+		<wsdl:part name="pass" type="xsd:string">
+		</wsdl:part>
+	</wsdl:message>
+
+	<wsdl:message name="executeCommandResponse">
+
+		<wsdl:part name="executeCommandReturn" type="xsd:string">
+
+		</wsdl:part>
+
+	</wsdl:message>
+
+	<wsdl:message name="executeCommand1Request">
+		<wsdl:part name="executeCommand1Request" type="xsd:string"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="executeCommand1Response">
+		<wsdl:part name="executeCommand1Response" type="xsd:string"></wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="EntityAction">
+
+		<wsdl:operation name="executeCommand" parameterOrder="command user pass">
+
+			<wsdl:input message="impl:executeCommandRequest" name="executeCommandRequest">
+
+			</wsdl:input>
+
+			<wsdl:output message="impl:executeCommandResponse" name="executeCommandResponse">
+
+			</wsdl:output>
+
+		</wsdl:operation>
+
+	</wsdl:portType>
+
+	<wsdl:binding name="EntityActionSoapBinding" type="impl:EntityAction">
+
+		<wsdlsoap:binding style="rpc"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<wsdl:operation name="executeCommand">
+
+			<wsdlsoap:operation soapAction="" />
+
+			<wsdl:input name="executeCommandRequest">
+
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://webservices.gateway.fss.com" use="literal" />
+			</wsdl:input>
+
+			<wsdl:output name="executeCommandResponse">
+				<wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+					namespace="http://webservices.gateway.fss.com" use="literal" />
+
+			</wsdl:output>
+
+		</wsdl:operation>
+
+	</wsdl:binding>
+
+	<wsdl:service name="EntityActionService">
+
+		<wsdl:port binding="impl:EntityActionSoapBinding" name="EntityAction">
+
+			<wsdlsoap:address
+				location="http://192.168.6.219:8080/ccgwservicesv2/services/EntityAction" />
+
+		</wsdl:port>
+
+	</wsdl:service>
+
+</wsdl:definitions>

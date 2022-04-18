@@ -1,0 +1,17 @@
+CREATE COMPUTE MODULE esql_mapping_XML2XML
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE ns NAMESPACE 'http://webservices.gateway.fss.com';
+		DECLARE hlr NAMESPACE 'http://10.50.9.2:19003/hlrgw';
+		DECLARE web NAMESPACE 'http://schemas.xmlsoap.org/soap/envelope/';
+
+		SET OutputRoot.XMLNSC.web:Envelope.(XMLNSC.NamespaceDecl)xmlns:hlr = hlr;
+		SET OutputRoot.XMLNSC.web:Envelope.(XMLNSC.NamespaceDecl)xmlns:web = web;
+		-- InputRoot.SOAP.Body.ns:executeCommand.user;
+		SET OutputRoot.XMLNSC.web:Envelope.web:Body.hlr:execute.username = '' || InputRoot.XMLNSC.web:Envelope.web:Body.ns:executeCommand.user;
+		SET OutputRoot.XMLNSC.web:Envelope.web:Body.hlr:execute.password = '' || InputRoot.XMLNSC.web:Envelope.web:Body.ns:executeCommand.pass;
+		SET OutputRoot.XMLNSC.web:Envelope.web:Body.hlr:execute.command = 'command=' || InputRoot.XMLNSC.web:Envelope.web:Body.ns:executeCommand.command;
+
+		RETURN TRUE;
+	END;
+END MODULE;

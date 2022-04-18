@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://10.50.9.2:19003/hlrgw" xmlns:apachesoap="http://xml.apache.org/xml-soap"
+	xmlns:ibmSchExtn="http://www.ibm.com/schema/extensions" xmlns:intf="http://10.50.9.2:19003/hlrgw">
+
+	<!-- BEGIN Global group petaining to all wsdl:message definitions -->
+	<xsd:group name="executeRequestGroup">
+		<xsd:sequence>
+			<xsd:element name="username" type="xsd:string" />
+			<xsd:element name="password" type="xsd:string" />
+			<xsd:element name="command" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:group name="executeResponseGroup">
+		<xsd:sequence>
+			<xsd:element name="status" type="xsd:string" />
+			<xsd:element name="response" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:group>
+	<!-- END Global group -->
+
+
+	<!-- BEGIN Message Definitions for the wsdl:operations -->
+	<xsd:element ibmSchExtn:docRoot="true" name="execute"
+		type="intf:execute_OperType" />
+	<xsd:element ibmSchExtn:docRoot="true" name="executeResponse"
+		type="intf:executeResponse_OperType" />
+	<xsd:complexType name="execute_OperType">
+		<xsd:choice maxOccurs="1" minOccurs="1">
+			<xsd:group ref="intf:executeRequestGroup" />
+		</xsd:choice>
+	</xsd:complexType>
+	<xsd:complexType name="executeResponse_OperType">
+		<xsd:choice maxOccurs="1" minOccurs="1">
+			<xsd:group ref="intf:executeResponseGroup" />
+		</xsd:choice>
+	</xsd:complexType>
+	<!-- END Message Definitions -->
+
+
+</xsd:schema>

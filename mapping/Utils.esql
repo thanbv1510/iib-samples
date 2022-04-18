@@ -1,0 +1,6 @@
+-- Utils
+
+CREATE FUNCTION combineResult (IN address CHARACTER, IN email CHARACTER ) RETURNS CHARACTER
+BEGIN
+	RETURN address || '-' || email;
+END;

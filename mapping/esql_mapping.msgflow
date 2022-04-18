@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ComIbmCompute.msgnode="ComIbmCompute.msgnode" xmlns:ComIbmWSInput.msgnode="ComIbmWSInput.msgnode" xmlns:ComIbmWSReply.msgnode="ComIbmWSReply.msgnode" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:eflow="http://www.ibm.com/wbi/2005/eflow" xmlns:utility="http://www.ibm.com/wbi/2005/eflow_utility" nsURI="esql_mapping.msgflow" nsPrefix="esql_mapping.msgflow">
+  <eClassifiers xmi:type="eflow:FCMComposite" name="FCMComposite_1">
+    <eSuperTypes href="http://www.ibm.com/wbi/2005/eflow#//FCMBlock"/>
+    <translation xmi:type="utility:TranslatableString" key="esql_mapping" bundleName="esql_mapping" pluginId="mapping"/>
+    <colorGraphic16 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/mapping/icons/full/obj16/esql_mapping.gif"/>
+    <colorGraphic32 xmi:type="utility:GIFFileGraphic" resourceName="platform:/plugin/mapping/icons/full/obj30/esql_mapping.gif"/>
+    <composition>
+      <nodes xmi:type="ComIbmWSReply.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_2" location="396,282">
+        <translation xmi:type="utility:ConstantString" string="HTTP Reply"/>
+      </nodes>
+      <nodes xmi:type="ComIbmWSInput.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_3" location="60,237" URLSpecifier="/mapping_esql" messageDomainProperty="XMLNSC">
+        <translation xmi:type="utility:ConstantString" string="HTTP Input"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_9" location="176,213" computeExpression="esql://routine/#esql_mapping_JSON2JSON.Main">
+        <translation xmi:type="utility:ConstantString" string="JSON2JSON"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_10" location="178,274" computeExpression="esql://routine/#esql_mapping_JSON2XML.Main">
+        <translation xmi:type="utility:ConstantString" string="JSON2XML"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_11" location="181,341" computeExpression="esql://routine/#esql_mapping_XML2XML.Main">
+        <translation xmi:type="utility:ConstantString" string="XML2XML"/>
+      </nodes>
+      <nodes xmi:type="ComIbmCompute.msgnode:FCMComposite_1" xmi:id="FCMComposite_1_12" location="177,406" computeExpression="esql://routine/#esql_mapping_XML2JSON.Main">
+        <translation xmi:type="utility:ConstantString" string="XML2JSON"/>
+      </nodes>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_8" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_9" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_10" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_10" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_11" targetNode="FCMComposite_1_11" sourceNode="FCMComposite_1_3" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_12" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_11" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+      <connections xmi:type="eflow:FCMConnection" xmi:id="FCMConnection_13" targetNode="FCMComposite_1_2" sourceNode="FCMComposite_1_12" sourceTerminalName="OutTerminal.out" targetTerminalName="InTerminal.in"/>
+    </composition>
+    <propertyOrganizer/>
+    <stickyBoard>
+      <stickyNote location="21,19">
+        <body xmi:type="utility:ConstantString" string="convert String to Json&#xA;&#xA;-- initialize the variable with JSON string&#xD;&#xA;&#x9;&#x9;DECLARE messageText CHARACTER  '{&quot;UserName&quot;:&quot;test user 1&quot;,&quot;UpdatedBy&quot;:&quot;user2&quot;,&quot;Details&quot;:{&quot;Approved&quot;:true,&quot;Initiated&quot;:true}}';&#xD;&#xA;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#xA;&#xA;-- converting JSON string into JSON object&#xD;&#xA;&#x9;&#x9;DECLARE dataAsBit BIT CAST(messageText AS BIT CCSID 1208);&#xD;&#xA;&#x9;&#x9;CREATE LASTCHILD OF OutputRoot DOMAIN 'JSON' PARSE(dataAsBit CCSID 1208);"/>
+      </stickyNote>
+    </stickyBoard>
+  </eClassifiers>
+</ecore:EPackage>
