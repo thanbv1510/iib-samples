@@ -1,0 +1,17 @@
+PATH --common;
+
+CREATE COMPUTE MODULE viewIsdnWsgc_ComPrepareCmd
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		declare cmd character;
+		--CALL CopyMessageHeaders();
+		CALL CopyEntireMessage(InputBody, OutputRoot);
+
+		DELETE LASTCHILD OF OutputRoot;
+
+		SET cmd = Environment.hlr.command ||newLine;
+		SET OutputRoot.BLOB.BLOB=CAST( cmd AS BLOB CCSID InputRoot.Properties.CodedCharSetId);
+
+		RETURN TRUE;
+	END;
+END MODULE;

@@ -1,0 +1,18 @@
+PATH -- common;
+
+CREATE COMPUTE MODULE viewIsdnWsgc_ComPrepareLogin
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		DECLARE cmd CHARACTER;
+		
+		-- CALL CopyMessageHeaders(InputRoot, OutputRoot);
+		CALL CopyEntireMessage(InputRoot, OutputRoot);
+
+		DELETE LASTCHILD OF OutputRoot;			
+		SET cmd= Environment.hlr.username || newLine || Environment.hlr.username || newLine ;
+		
+		SET OutputRoot.BLOB.BLOB=CAST( cmd AS BLOB CCSID InputRoot.Properties.CodedCharSetId);		
+		
+		RETURN TRUE;
+	END;
+END MODULE;

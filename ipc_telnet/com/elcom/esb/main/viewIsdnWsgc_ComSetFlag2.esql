@@ -1,0 +1,19 @@
+PATH --common;
+
+CREATE COMPUTE MODULE viewIsdnWsgc_ComSetFlag2
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders();
+		CALL CopyEntireMessage(InputRoot, OutputRoot);
+
+		SET LoggedIn = true;
+		IF InputLocalEnvironment.Destination.RouterList.DestinationData IS NULL THEN
+			SET InputLocalEnvironment.Destination.RouterList.DestinationData.labelName = 'sendCmd';
+		ELSE
+			CREATE LASTCHILD OF InputLocalEnvironment.Destination.RouterList.DestinationData
+			NAME 'labelName' VALUE 'sendCmd';
+		END IF;
+		
+		RETURN TRUE;
+	END;
+END MODULE;

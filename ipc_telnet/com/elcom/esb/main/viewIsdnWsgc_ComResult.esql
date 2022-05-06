@@ -1,0 +1,33 @@
+PATH --common;
+
+CREATE COMPUTE MODULE viewIsdnWsgc_ComResult
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders(InputRoot, OutputRoot);
+		CALL CopyEntireMessage(InputRoot, OutputRoot);
+
+		DECLARE ns1 NAMESPACE 'http://promreg.ws.fss.com';
+		DECLARE ErrorNum INTEGER;
+		DECLARE ErrText CHARACTER;
+		DECLARE Path CHARACTER;
+		SET Path = 'InputExceptionList.*[1]';
+		if EVAL('FIELDNAME(' || Path || ') IS NOT NULL') then
+			WHILE EVAL('FIELDNAME(' || Path || ') IS NOT NULL')
+				DO
+				IF EVAL('FIELDNAME(' || Path || '.Number) IS NOT NULL')
+					THEN SET ErrorNum =EVAL(Path ||'.Number');
+					IF ErrorNum > 3000 AND ErrorNum < 3020
+						THEN Set ErrText = EVAL(Path || '.Insert[1].Text');
+					ELSE Set ErrText = EVAL(Path || '.Text');
+					END IF;
+				END IF;
+				SET Path = Path || '.*[LAST]';
+			END WHILE;
+			SET OutputRoot.XMLNSC.SOAP_Domain_Msg = ErrText;
+		else
+
+			SET OutputRoot.SOAP.Body.ns1:ipcWsgc.response = CAST(InputRoot.BLOB.BLOB as CHAR CCSID InputRoot.Properties.CodedCharSetId);
+		end if;
+		RETURN TRUE;
+	END;
+END MODULE;

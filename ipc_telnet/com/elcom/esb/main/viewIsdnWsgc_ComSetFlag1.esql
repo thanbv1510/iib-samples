@@ -1,0 +1,12 @@
+PATH --common;
+
+CREATE COMPUTE MODULE viewIsdnWsgc_ComSetFlag1
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		-- CALL CopyMessageHeaders(InputRoot, OutputRoot);
+		CALL CopyEntireMessage(InputRoot, OutputRoot);
+		SET LoggedIn = FALSE;
+
+		RETURN TRUE;
+	END;
+END MODULE;

@@ -1,0 +1,37 @@
+PATH -- common here;
+
+DECLARE LoggedIn SHARED BOOLEAN false;
+DECLARE newLine SHARED CHARACTER;
+
+CREATE COMPUTE MODULE viewIsdnWsgc_ComPrepare
+	CREATE FUNCTION Main() RETURNS BOOLEAN
+	BEGIN
+		SET newLine = CAST(X'0D0A' AS CHAR CCSID InputRoot.Properties.CodedCharSetId);
+		DECLARE ns NAMESPACE 'http://promreg.ws.fss.com';
+
+		DECLARE branch CHARACTER;
+		--CALL CopyMessageHeaders(InputRoot, OutputRoot);
+		CALL CopyEntireMessage(InputRoot, OutputRoot);
+
+		SET Environment.LogIn.status=LoggedIn;
+
+		IF (LoggedIn = FALSE) THEN
+			SET branch='doLogin';
+		ELSE
+			SET branch='sendCmd';
+		END IF;
+
+		IF InputLocalEnvironment.Destination.RouterList.DestinationData IS NULL THEN
+			SET InputLocalEnvironment.Destination.RouterList.DestinationData.labelName = branch;
+		ELSE
+			CREATE LASTCHILD OF InputLocalEnvironment.Destination.RouterList.DestinationData
+			NAME 'labelName' VALUE branch;
+		END IF;
+
+		SET Environment.hlr.command= InputRoot.SOAP.Body.ns:ipcWsgc.command;
+		SET Environment.hlr.username = InputRoot.SOAP.Body.ns:ipcWsgc.username;
+		SET Environment.hlr.password = InputRoot.SOAP.Body.ns:ipcWsgc.password;
+
+		RETURN TRUE;
+	END;
+END MODULE;
